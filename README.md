@@ -55,6 +55,7 @@ streamlit run ui/app.py
 ├── .env.example
 ├── .gitignore
 ├── .gitignore.example
+├── LICENSE
 ├── README.md
 ├── requirements.txt
 └── ui
