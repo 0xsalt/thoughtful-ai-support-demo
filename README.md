@@ -14,9 +14,11 @@ from a hardcoded knowledge base, with a graceful LLM fallback when confidence is
 - Observability: Source field `kb` or `fallback` displayed in the UI for easy debugging.
 
 ## Configure variables & project defaults
-### 
-echo -e ".env\n.venv" >> .gitignore
-cp .env.example .env and fill in your API key(s)
+### Configure .gitignore and .env with API key(s)
+```
+echo -e ".env\n.venv" >> .gitignore  
+cp .env.example .env # and fill in your API key(s)  
+```
 
 ## Run
 
