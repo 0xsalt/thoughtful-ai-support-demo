@@ -43,6 +43,7 @@ streamlit run ui/app.py
 * LLM fallback is guardrailed to cite only KB content.
 
 ## Repo Structure
+```
 ./
 ├── app
 │   ├── fallback.py
@@ -58,6 +59,7 @@ streamlit run ui/app.py
 ├── requirements.txt
 └── ui
     └── app.py
+```
 
 ## Attribution
 
