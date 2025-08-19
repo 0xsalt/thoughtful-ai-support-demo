@@ -1,5 +1,12 @@
 # Thoughtful AI – Customer Support Agent (Demo)
 
+Important Note: 
+
+* This implementation uses Streamlit + FastAPI. 
+* This will not run (easily) on Repl.it in its current state because I implemented it as two separate frontend + backend services and Repl.it by default only supports running one service at a time. 
+
+---
+
 A time-boxed Q&A agent that answers questions about Thoughtful AI’s healthcare Agents
 from a hardcoded knowledge base, with a graceful LLM fallback when confidence is low.
 
@@ -58,11 +65,17 @@ streamlit run ui/app.py
 ├── .gitignore
 ├── .gitignore.example
 ├── LICENSE
+├── .prjroot
 ├── README.md
+├── .replit
 ├── requirements.txt
 └── ui
     └── app.py
 ```
+
+## LICENSE
+
+* MIT
 
 ## Attribution
 
