@@ -15,13 +15,19 @@ from a hardcoded knowledge base, with a graceful LLM fallback when confidence is
 - Fallback: LLM provider to handle unmatched questions below threshold %
 - Front-end: Single page Streamlit, simple & clean UX
 
-## Why this design
-- 20-30 minutes time-boxed, minimize deps, maximize clarity.
-- Reliability: knowledge base is authoritative with graceful fallback to LLM based on KB.
-- Observability: Source field `kb` or `fallback` displayed in the UI for easy debugging.
+## Features
+- Knowledge base is authoritative with graceful fallback to LLM based on KB.
+- Source field `kb` or `fallback` displayed in the UI for easy debugging.
+- Slider on left to change the keyword lookup minimum match percentage. 
+
+## Test example of search threshold match % tuning and how to ensure the app returns the correct answer.
+  - Match percentage starts at 78%
+  - If you ask "How does PHIL work?" it will match 83% and return the KB answer. 
+  - If you ask "What does PHIL do?" it will match 83% to an answer about EVA and return an incorrect KB answer.
+  - Change the KB Match Threshold slider to 84%, then click "Update Threshold". It will update the minimum percentage match and now asking "What does PHIL do?" will still match at 83%, which is now below the minimum threshold, and then fallback to LLM lookup which returns the correct answer.
 
 ## Configure variables & project defaults
-### Configure .gitignore and .env with API key(s)
+### Setup .gitignore and .env with API key(s)
 ```
 echo -e ".env\n.venv" >> .gitignore  
 cp .env.example .env # and fill in your API key(s)  
