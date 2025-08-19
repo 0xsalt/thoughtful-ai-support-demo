@@ -19,7 +19,7 @@ def llm_fallback(user_q: str, kb_text: str):
     if not api_key:
         return {
             "source": "fallback",
-            "answer": "I’m not fully sure. From our knowledge base, agents include EVA, CAM, and PHIL. Would you like details on those?"
+            "answer": "It looks like my OpenAI API key is not configured yet. From our knowledge base, agents include EVA, CAM, and PHIL. Would you like details on those?"
         }
 
     try:
