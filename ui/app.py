@@ -2,9 +2,13 @@
 
 import streamlit as st
 import httpx
+import os
 
 st.set_page_config(page_title="Thoughtful Q&A", page_icon="🤖", layout="wide")
 st.title("Thoughtful AI – Support Agent (Demo)")
+
+# API base URL - configurable for container environments
+BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 # Configuration sidebar
 with st.sidebar:
@@ -12,7 +16,7 @@ with st.sidebar:
     
     # Get current threshold
     try:
-        config_resp = httpx.get("http://localhost:8000/config", timeout=5)
+        config_resp = httpx.get(f"{BASE_URL}/config", timeout=5)
         if config_resp.status_code == 200:
             current_threshold = config_resp.json().get("threshold", 78)
         else:
@@ -35,7 +39,7 @@ with st.sidebar:
     if st.button("🔄 Update Threshold"):
         try:
             update_resp = httpx.post(
-                "http://localhost:8000/config", 
+                f"{BASE_URL}/config", 
                 json={"threshold": new_threshold}, 
                 timeout=5
             )
@@ -55,7 +59,7 @@ score = None
 q = st.text_input("Ask about Thoughtful AI’s Agents")
 if st.button("Ask") and q:
     try:
-        resp = httpx.post("http://localhost:8000/ask", json={"question": q}, timeout=10)
+        resp = httpx.post(f"{BASE_URL}/ask", json={"question": q}, timeout=10)
         data = resp.json()
         st.markdown(f"**Answer** ({data.get('source','?')}): {data.get('answer','')}")
         thr = data.get("threshold")

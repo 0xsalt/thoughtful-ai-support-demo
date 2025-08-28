@@ -3,6 +3,7 @@
 import json, os
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.retrieval import best_match
 from .fallback import llm_fallback
@@ -21,6 +22,13 @@ class ConfigUpdate(BaseModel):
     threshold: int
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],        # tighten in prod
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/healthz")
 def healthz():
