@@ -17,6 +17,8 @@ Access at:
 - API: http://localhost:8000
 - Frontend: http://localhost:8501
 
+OR
+
 ### Python Virtual Environment
 ```bash
 python3 -m venv .venv
