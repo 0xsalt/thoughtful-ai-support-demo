@@ -9,6 +9,15 @@ cp .env.example .env # and fill in your API key(s)
 
 ## Run
 
+### Docker (Recommended)
+```bash
+docker compose up --build
+```
+Access at:
+- API: http://localhost:8000
+- Frontend: http://localhost:8501
+
+### Python Virtual Environment
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
