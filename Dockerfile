@@ -1,5 +1,5 @@
-# Build stage - compile dependencies
-FROM python:3.12-alpine AS builder
+# Base Python image with pre-compiled wheels
+FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -7,30 +7,14 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Install build dependencies for compiling Python packages
-RUN apk add --no-cache \
-    gcc g++ musl-dev linux-headers \
-    libffi-dev openssl-dev \
-    rust cargo
+# System deps (kept minimal)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install Python deps (will compile from source)
+# Install Python deps first for better caching
 COPY requirements.txt .
-RUN pip install --user --no-cache-dir -r requirements.txt
-
-# Runtime stage - clean minimal image
-FROM python:3.12-alpine
-
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PATH=/root/.local/bin:$PATH
-
-WORKDIR /app
-
-# Install only runtime dependencies
-RUN apk add --no-cache curl ca-certificates
-
-# Copy compiled packages from builder stage
-COPY --from=builder /root/.local /root/.local
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy source (compose will mount a volume over this in dev)
 COPY . .
